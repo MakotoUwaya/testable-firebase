@@ -11,7 +11,7 @@ let testEnv: RulesTestEnvironment;
 
 export const initializeTestEnvironment = async () => {
   testEnv = await _initializeTestEnvironment({
-    projectId: "fs-sample-open-chat-test",
+    projectId: "api-project-90393892794",
     firestore: {
       rules: readFileSync("firestore.rules", "utf8"),
     },
