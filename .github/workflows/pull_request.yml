@@ -1,0 +1,31 @@
+name: test
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+      - hotfix/**
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.X]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: install npm
+        run: npm ci
+        env:
+          CI: true
+      - name: run firebase emulator
+        run: npm run emulators:start:firestore & sleep 10
+      - name: check
+        run: npm test
+        env:
+          CI: true

@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "test": "vitest run --silent --coverage.enabled --coverage.all",
+    "test": "vitest run",
+    "test:coverage": "vitest run --silent --coverage.enabled --coverage.all",
     "emulators:start:firestore": "firebase emulators:start --only firestore",
     "preview": "vite preview",
     "deploy": "npm run build && firebase deploy --except functions"
