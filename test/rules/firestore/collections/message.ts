@@ -30,7 +30,6 @@ const otherMessage = messageFactory.build({
 });
 const messages = [userMessage, otherMessage];
 
-
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const messagesTest = () => {
   let env: RulesTestEnvironment;

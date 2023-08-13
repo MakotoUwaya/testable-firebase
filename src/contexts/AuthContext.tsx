@@ -11,18 +11,14 @@ export const AuthContext = createContext<AuthContextValue>({
   currentUser: null,
 });
 
-export const AuthProvider = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser] = useAuthState();
 
   return (
     <AuthContext.Provider value={{ currentUser }}>
       {children}
     </AuthContext.Provider>
-  )
+  );
 };
 
 export const useAuth = () => {

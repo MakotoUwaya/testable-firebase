@@ -1,25 +1,18 @@
 import type { User } from "firebase/auth";
-import {
-  render,
-  cleanup,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { render, cleanup, screen, waitFor } from "@testing-library/react";
 
 const useAuthStateMock = vi.fn();
-vi.mock('@/hooks/useAuthState', () => {
+vi.mock("@/hooks/useAuthState", () => {
   return {
     useAuthState: useAuthStateMock,
   };
 });
 
-describe('AuthProvider', async () => {
+describe("AuthProvider", async () => {
   const { useAuth, AuthProvider } = await import("@/contexts/AuthContext");
   const AuthedScreen = () => {
     const { currentUser } = useAuth();
-    return (
-      <div>`${currentUser?.displayName}でログインできました`</div>
-    );
+    return <div>`${currentUser?.displayName}でログインできました`</div>;
   };
   const TestComponent = () => (
     <AuthProvider>
@@ -32,13 +25,15 @@ describe('AuthProvider', async () => {
     cleanup();
   });
 
-  test('コンテキストデータが取得できる', async () => {
+  test("コンテキストデータが取得できる", async () => {
     useAuthStateMock.mockReturnValue([
-      { uid: 'test-user-uid', displayName: 'てすたろう' } as User,
+      { uid: "test-user-uid", displayName: "てすたろう" } as User,
       true,
       undefined,
     ]);
     render(<TestComponent />);
-    waitFor(() => expect(screen.getByText('てすたろうでログインできました')).toBeTruthy());
+    waitFor(() =>
+      expect(screen.getByText("てすたろうでログインできました")).toBeTruthy(),
+    );
   });
 });
