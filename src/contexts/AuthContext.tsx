@@ -1,7 +1,8 @@
-import type { User } from "firebase/auth";
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, ReactNode, useCallback, useContext } from "react";
 
 import { useAuthState } from "@/hooks/useAuthState";
+import { signInGoogleWithPopup, signOut, User } from "@/lib/firebase";
+import { getUser, addUser } from "@/lib/user";
 
 type AuthContextValue = {
   currentUser?: User | null;
@@ -23,5 +24,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 export const useAuth = () => {
   const { currentUser } = useContext(AuthContext);
-  return { currentUser };
+  const signInWithGoogle = useCallback(async () => {
+    try {
+      const { user } = await signInGoogleWithPopup();
+      const { isExist } = await getUser(user.uid);
+      if (!isExist) {
+        await addUser(user);
+      }
+    } catch (e) {
+      console.error(e);
+      await signOut();
+    }
+  }, []);
+  return { currentUser, signInWithGoogle, signOut };
 };

@@ -25,7 +25,7 @@ describe("AuthProvider", async () => {
     cleanup();
   });
 
-  test("コンテキストデータが取得できる", async () => {
+  test("コンテキストデータが取得できる", () => {
     useAuthStateMock.mockReturnValue([
       { uid: "test-user-uid", displayName: "てすたろう" } as User,
       true,
