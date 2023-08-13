@@ -1,9 +1,17 @@
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut as _signOut,
+  User,
+} from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import {
   DocumentData,
   FirestoreDataConverter,
   PartialWithFieldValue,
   QueryDocumentSnapshot,
+  serverTimestamp as _serverTimestamp,
   SnapshotOptions,
   Timestamp,
 } from "firebase/firestore";
@@ -22,9 +30,17 @@ const firebaseConfig = {
 };
 initializeApp(firebaseConfig);
 
-export { Timestamp };
-export type WithId<T> = T & { id: string };
-export const getConverter = <T>(): FirestoreDataConverter<WithId<T>> => ({
+const signInGoogleWithPopup = () => {
+  const provider = new GoogleAuthProvider();
+  return signInWithPopup(getAuth(), provider);
+};
+
+const signOut = () => _signOut(getAuth());
+
+const serverTimestamp = _serverTimestamp as unknown as () => Timestamp;
+
+type WithId<T> = T & { id: string };
+const getConverter = <T>(): FirestoreDataConverter<WithId<T>> => ({
   toFirestore: (data: PartialWithFieldValue<WithId<T>>): DocumentData => {
     return omit(data, ["id"]);
   },
@@ -36,3 +52,12 @@ export const getConverter = <T>(): FirestoreDataConverter<WithId<T>> => ({
     return { id: snapshot.id, ...data };
   },
 });
+
+export type { User, WithId };
+export {
+  getConverter,
+  serverTimestamp,
+  signInGoogleWithPopup,
+  signOut,
+  Timestamp,
+};
