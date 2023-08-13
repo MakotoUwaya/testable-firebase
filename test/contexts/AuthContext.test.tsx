@@ -52,15 +52,24 @@ describe("AuthProvider", async () => {
     cleanup();
   });
 
-  test("コンテキストデータが取得できる", () => {
+  test("コンテキストデータが取得できる", async () => {
     useAuthStateMock.mockReturnValue([
       { uid: "test-user-uid", displayName: "てすたろう" } as User,
       true,
       undefined,
     ]);
+    const { getByText } = render(<TestComponent />);
+    await waitFor(() =>
+      expect(
+        getByText("てすたろうでログインできました", { exact: false }),
+      ).toBeTruthy(),
+    );
+  });
+  test("未認証の場合、ログイン画面が表示される", async () => {
+    useAuthStateMock.mockReturnValue([null, false, undefined]);
     render(<TestComponent />);
-    waitFor(() =>
-      expect(screen.getByText("てすたろうでログインできました")).toBeTruthy(),
+    await waitFor(() =>
+      expect(screen.getByText("ログインしてください")).toBeTruthy(),
     );
   });
 });
@@ -122,7 +131,7 @@ describe("useAuth", async () => {
         photoURL: null,
       },
     });
-    getUserMock.mockRejectedValue('error');
+    getUserMock.mockRejectedValue("error");
     await act(async () => {
       await result.current.signInWithGoogle();
     });
