@@ -3,8 +3,11 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
+import { useAuth } from "@/contexts/AuthContext";
+
 function App() {
   const [count, setCount] = useState(0);
+  const { signOut } = useAuth();
 
   return (
     <>
@@ -28,6 +31,9 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <div>
+        <button onClick={signOut}>ログアウト</button>
+      </div>
     </>
   );
 }
