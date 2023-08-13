@@ -52,10 +52,10 @@ describe("AuthProvider", async () => {
     cleanup();
   });
 
-  test("コンテキストデータが取得できる", async () => {
+  test("認証済みの場合、ユーザーのコンテキストデータが取得できる", async () => {
     useAuthStateMock.mockReturnValue([
       { uid: "test-user-uid", displayName: "てすたろう" } as User,
-      true,
+      false,
       undefined,
     ]);
     const { getByText } = render(<TestComponent />);
@@ -71,6 +71,11 @@ describe("AuthProvider", async () => {
     await waitFor(() =>
       expect(screen.getByText("ログインしてください")).toBeTruthy(),
     );
+  });
+  test("認証中の場合、ローディング画面が表示される", async () => {
+    useAuthStateMock.mockReturnValue([null, true, undefined]);
+    render(<TestComponent />);
+    await waitFor(() => expect(screen.getByText("loading...")).toBeTruthy());
   });
 });
 
