@@ -10,10 +10,10 @@ describe("firestore.rules", () => {
   });
   afterAll(async () => {
     await getTestEnv().cleanup();
-  })
+  });
   afterEach(async () => {
     await getTestEnv().clearFirestore();
-  })
+  });
 
   usersTest();
   messagesTest();

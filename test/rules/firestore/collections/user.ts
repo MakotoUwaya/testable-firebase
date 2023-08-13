@@ -7,7 +7,6 @@ import {
 import { userFactory } from "@/../test/factories/user";
 import { getTestEnv, setCollection } from "../utils";
 import {
-  Firestore,
   collection,
   deleteDoc,
   doc,
@@ -39,7 +38,7 @@ export const usersTest = () => {
       await assertSucceeds(getDocs(collectionRef));
     });
     describe("自分のデータの場合", () => {
-      let db: Firestore;
+      let db: firebase.default.firestore.Firestore;
 
       beforeEach(() => {
         db = env.authenticatedContext(user.id).firestore();
@@ -65,7 +64,7 @@ export const usersTest = () => {
       });
     });
     describe("自分以外のデータの場合", () => {
-      let db: Firestore;
+      let db: firebase.default.firestore.Firestore;
 
       beforeEach(() => {
         db = env.authenticatedContext(user.id).firestore();
@@ -91,7 +90,7 @@ export const usersTest = () => {
     });
   });
   describe("未認証の場合", () => {
-    let db: Firestore;
+    let db: firebase.default.firestore.Firestore;
     beforeEach(() => {
       db = env.unauthenticatedContext().firestore();
     });

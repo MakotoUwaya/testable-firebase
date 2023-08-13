@@ -8,7 +8,6 @@ import { messageFactory } from "@/../test/factories/message";
 import { userFactory } from "@/../test/factories/user";
 import { getTestEnv, setCollection } from "../utils";
 import {
-  Firestore,
   collection,
   deleteDoc,
   doc,
@@ -31,7 +30,6 @@ const otherMessage = messageFactory.build({
 });
 const messages = [userMessage, otherMessage];
 
-
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const messagesTest = () => {
   let env: RulesTestEnvironment;
@@ -51,7 +49,7 @@ export const messagesTest = () => {
       await assertSucceeds(getDocs(collectionRef));
     });
     describe("自分のデータの場合", () => {
-      let db: Firestore;
+      let db: firebase.default.firestore.Firestore;
 
       beforeEach(() => {
         db = env.authenticatedContext(user.id).firestore();
@@ -79,7 +77,7 @@ export const messagesTest = () => {
       });
     });
     describe("自分以外のデータの場合", () => {
-      let db: Firestore;
+      let db: firebase.default.firestore.Firestore;
 
       beforeEach(() => {
         db = env.authenticatedContext(user.id).firestore();
@@ -107,7 +105,7 @@ export const messagesTest = () => {
     });
   });
   describe("未認証の場合", () => {
-    let db: Firestore;
+    let db: firebase.default.firestore.Firestore;
     beforeEach(() => {
       db = env.unauthenticatedContext().firestore();
     });

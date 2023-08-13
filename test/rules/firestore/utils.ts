@@ -22,11 +22,11 @@ export const getTestEnv = () => testEnv;
 
 export const setCollection = <T>(
   collectionRef: CollectionReference,
-  instances: WithId<T>[]
+  instances: WithId<T>[],
 ) =>
   Promise.all(
     instances.map((docData) => {
       const docRef = doc(collectionRef, docData.id);
       return setDoc(docRef, getConverter<T>().toFirestore(docData));
-    })
+    }),
   );
