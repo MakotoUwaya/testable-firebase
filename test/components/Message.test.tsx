@@ -69,7 +69,7 @@ describe("Message", async () => {
     });
     render(<Message message={message} />);
     await waitFor(() => {
-      expect(screen.getByText("2022/7/1 12:34:56")).toBeTruthy();
+      expect(screen.getByText("2022-07-01 12:34")).toBeTruthy();
     });
   });
   test("メッセージが表示される", async () => {
