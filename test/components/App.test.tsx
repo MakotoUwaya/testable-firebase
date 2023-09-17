@@ -1,6 +1,17 @@
 import { cleanup, render, screen } from "@testing-library/react";
-
 import { App } from "@/components/App";
+
+vi.mock('@/components/Messages', () => {
+  return {
+    Messages: () => <></>
+  };
+});
+
+vi.mock('@/components/MessageForm', () => {
+  return {
+    MessageForm: () => <></>
+  };
+});
 
 describe("App", () => {
   afterEach(() => cleanup());

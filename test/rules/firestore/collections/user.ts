@@ -5,7 +5,7 @@ import {
 } from "@firebase/rules-unit-testing";
 
 import { userFactory } from "@/../test/factories/user";
-import { getTestEnv, setCollection } from "../utils";
+import { getTestEnv, setCollection } from "@/../test/utils";
 import {
   collection,
   deleteDoc,

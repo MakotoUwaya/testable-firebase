@@ -13,7 +13,10 @@ dayjs.tz.setDefault('Asia/Tokyo');
 
 export const Message = ({ message }: { message: MessageType }) => {
   const { usersById, loading } = useUsers();
+  console.log('usersById', usersById);
   const sender = usersById[message.senderId];
+  console.log('sender', sender);
+  console.log('loading', loading);
 
   if (loading) {
     return <LoadingScreen />;
