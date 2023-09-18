@@ -20,7 +20,7 @@
     }
   ],
   "hosting": {
-    "site": "testable-firebase-8a337",
+    "site": "oichan-testable-firebase",
     "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [

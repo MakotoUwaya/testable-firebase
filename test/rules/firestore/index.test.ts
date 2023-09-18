@@ -1,5 +1,6 @@
 import { usersTest } from "./collections/user";
 import { messagesTest } from "./collections/message";
+import { userSecretsTest } from "./collections/userSecret";
 import { initializeTestEnvironment, getTestEnv } from "@/../test/utils";
 
 describe("firestore.rules", () => {
@@ -15,4 +16,5 @@ describe("firestore.rules", () => {
 
   usersTest();
   messagesTest();
+  userSecretsTest();
 });
