@@ -14,6 +14,11 @@ service cloud.firestore {
       allow read: if isLoggedIn();
       allow write: if isOwn(uid);
     }
+
+    match /userSecrets/{uid} {
+      allow get, write: if isOwn(uid);
+    }
+
     match /messages/{uid} {
       allow read: if isLoggedIn();
       allow create: if isOwn(request.resource.data.senderId);
