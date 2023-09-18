@@ -15,6 +15,7 @@ import {
   SnapshotOptions,
   Timestamp,
 } from "firebase/firestore";
+import { getMessaging, getToken } from "firebase/messaging";
 
 import { omit } from "./utils";
 
@@ -38,6 +39,11 @@ const signOut = () => _signOut(getAuth());
 
 const serverTimestamp = _serverTimestamp as unknown as () => Timestamp;
 
+const getFcmToken = async () =>
+  getToken(getMessaging(), {
+    vapidKey: import.meta.env.VITE_FIREBASE_MESSAGING_VAPID_KEY,
+  });
+
 type WithId<T> = T & { id: string };
 const getConverter = <T>(): FirestoreDataConverter<WithId<T>> => ({
   toFirestore: (data: PartialWithFieldValue<WithId<T>>): DocumentData => {
@@ -55,6 +61,7 @@ const getConverter = <T>(): FirestoreDataConverter<WithId<T>> => ({
 export type { User, WithId };
 export {
   getConverter,
+  getFcmToken,
   serverTimestamp,
   signInGoogleWithPopup,
   signOut,
