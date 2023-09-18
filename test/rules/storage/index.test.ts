@@ -1,10 +1,9 @@
-import { usersTest } from "./collections/user";
-import { messagesTest } from "./collections/message";
+import { messagesTest } from "@/../test/rules/storage/messages";
 import { initializeTestEnvironment, getTestEnv } from "@/../test/utils";
 
-describe("firestore.rules", () => {
+describe("storage.rules", () => {
   beforeAll(async () => {
-    await initializeTestEnvironment("oichan-testable-firebase");
+    await initializeTestEnvironment("testable-firebase-sample-chat-storage-rules-test");
   });
   afterAll(async () => {
     await getTestEnv().cleanup();
@@ -13,6 +12,5 @@ describe("firestore.rules", () => {
     await getTestEnv().clearFirestore();
   });
 
-  usersTest();
   messagesTest();
 });

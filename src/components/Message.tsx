@@ -4,6 +4,7 @@ import timezone from "dayjs/plugin/timezone";
 
 import { LoadingScreen } from "@/components/LoadingScreen";
 import { useUsers } from "@/contexts/UsersContext";
+import { useBlob } from '@/hooks/useBlob';
 import { Message as MessageType } from "@/types/message";
 import nonameIcon from "@/images/noname.png";
 
@@ -13,10 +14,8 @@ dayjs.tz.setDefault('Asia/Tokyo');
 
 export const Message = ({ message }: { message: MessageType }) => {
   const { usersById, loading } = useUsers();
-  console.log('usersById', usersById);
   const sender = usersById[message.senderId];
-  console.log('sender', sender);
-  console.log('loading', loading);
+  const { url } = useBlob(message.imagePath);
 
   if (loading) {
     return <LoadingScreen />;
@@ -29,6 +28,7 @@ export const Message = ({ message }: { message: MessageType }) => {
         <span>{dayjs.unix(message.createdAt.seconds).tz().format("YYYY-MM-DD hh:mm")}</span>
       </div>
       <p>{message.content}</p>
+      {url && <img alt='message-image' src={url} />}
     </div>
   );
 };
