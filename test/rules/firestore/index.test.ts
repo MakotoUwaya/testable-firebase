@@ -4,7 +4,7 @@ import { initializeTestEnvironment, getTestEnv } from "@/../test/utils";
 
 describe("firestore.rules", () => {
   beforeAll(async () => {
-    await initializeTestEnvironment("api-project-90393892794");
+    await initializeTestEnvironment("oichan-testable-firebase");
   });
   afterAll(async () => {
     await getTestEnv().cleanup();
