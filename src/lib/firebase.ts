@@ -1,4 +1,5 @@
 import {
+  connectAuthEmulator,
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
@@ -7,8 +8,10 @@ import {
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import {
+  connectFirestoreEmulator,
   DocumentData,
   FirestoreDataConverter,
+  initializeFirestore,
   PartialWithFieldValue,
   QueryDocumentSnapshot,
   serverTimestamp as _serverTimestamp,
@@ -28,7 +31,16 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+
+if (import.meta.env.VITE_EMULATORS === "true") {
+  console.info("USE EMULATORS...");
+  connectAuthEmulator(getAuth(), "http://127.0.0.1:9099");
+  const firestore = initializeFirestore(app, {
+    experimentalForceLongPolling: true,
+  });
+  connectFirestoreEmulator(firestore, "127.0.0.1", 8080);
+}
 
 const signInGoogleWithPopup = () => {
   const provider = new GoogleAuthProvider();
