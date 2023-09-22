@@ -1,0 +1,31 @@
+name: e2e
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.X]
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: install npm
+        run: npm ci
+      - name: install firebase-tools
+        run: npm i -g firebase-tools
+      - name: build
+        run: npm run build:test
+      - name: run firebase emulator
+        run: npm run emulators:start & sleep 10
+      - name: e2e test
+        run: npm run test:e2e
