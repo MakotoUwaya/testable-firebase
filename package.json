@@ -11,7 +11,7 @@
     "lint:fix": "prettier . --write",
     "test": "vitest run",
     "test:coverage": "vitest run --silent --coverage.enabled --coverage.all",
-    "test:e2e": "cypress run",
+    "test:e2e": "cypress run --browser chrome",
     "emulators:start": "firebase emulators:start --only hosting,auth,firestore,storage",
     "emulators:test": "firebase emulators:start --only firestore,storage",
     "preview": "vite preview",

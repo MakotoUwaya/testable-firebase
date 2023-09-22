@@ -7,6 +7,8 @@ admin.initializeApp({
 });
 
 export default defineConfig({
+  viewportWidth: 1280,
+  viewportHeight: 1080,
   e2e: {
     baseUrl: "http://127.0.0.1:5000",
     supportFile: "cypress/support/e2e.ts",
