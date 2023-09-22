@@ -27,7 +27,7 @@ jobs:
       - name: install firebase-tools
         run: npm i -g firebase-tools
       - name: run firebase emulator
-        run: npm run emulators:start:firestore & sleep 10
+        run: npm run emulators:test & sleep 10
       - name: test
         run: npm test
       - name: wait for emulator report

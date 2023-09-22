@@ -9,7 +9,7 @@ export const Messages = () => {
     return <LoadingScreen />;
   }
   return (
-    <div>
+    <div id="messages">
       {messages?.map((message) => (
         <Message key={message.id} message={message} />
       ))}
